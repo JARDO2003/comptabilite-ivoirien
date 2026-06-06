@@ -1,0 +1,40 @@
+/* SYSCOHADA Pro — COMEO AI v5 */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #faf8f4;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc4b4;
+  border-radius: 2px;
+}
+
+/* Animation fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pulse animation for status */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.75); }
+}
+
+/* Bounce for loading dots */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-bounce {
+  animation: bounce 1.3s infinite;
+}
