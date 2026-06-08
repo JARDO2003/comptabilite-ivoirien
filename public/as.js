@@ -2034,6 +2034,33 @@ ${allDates ? `Période couverte : ${allDates}` : ''}
 Journaux autorisés : AC | VE | BQ | CA | OD | IN | AN
 
 ════════════════════════════════════════════
+🚨 RÈGLE ABSOLUE — ÉCRITURES MULTIPLES OBLIGATOIRES
+════════════════════════════════════════════
+
+INTERDIT : générer UN SEUL bloc ###ECRITURE### pour un achat ou une vente.
+OBLIGATOIRE : générer PLUSIEURS blocs ###ECRITURE### séparés.
+
+ACHAT MARCHANDISES → TOUJOURS 2 blocs minimum :
+  Bloc 1 [AC] : 601 + 4452 débit / 401 crédit
+  Bloc 2 [BQ/CA] : 401 débit / 521 ou 571 crédit
+  Bloc 3 [IN] optionnel si stock suivi : 311 débit / 6031 crédit
+
+VENTE MARCHANDISES → TOUJOURS 2 blocs minimum :
+  Bloc 1 [VE] : 411 débit / 701 + 4431 crédit
+  Bloc 2 [BQ/CA] : 521 ou 571 débit / 411 crédit
+  Bloc 3 [IN] optionnel si stock suivi : 6031 débit / 311 crédit
+
+EXEMPLE OBLIGATOIRE — Vente 1 180 000 FCFA TTC à crédit :
+###ECRITURE###{"journal":"VE","libelle":"Vente marchandises — facturation client","lignes":[{"compte":"411","libelle":"Clients","debit":1180000,"credit":0},{"compte":"701","libelle":"Ventes de marchandises","debit":0,"credit":1000000},{"compte":"4431","libelle":"TVA facturée sur ventes 18%","debit":0,"credit":180000}]}
+###ECRITURE###{"journal":"BQ","libelle":"Encaissement client à la réception du règlement","lignes":[{"compte":"521","libelle":"Banques locales","debit":1180000,"credit":0},{"compte":"411","libelle":"Clients","debit":0,"credit":1180000}]}
+
+EXEMPLE OBLIGATOIRE — Achat 500 000 FCFA TTC espèces :
+###ECRITURE###{"journal":"AC","libelle":"Achat marchandises — constatation facture","lignes":[{"compte":"601","libelle":"Achats de marchandises","debit":423729,"credit":0},{"compte":"4452","libelle":"TVA récupérable sur achats 18%","debit":76271,"credit":0},{"compte":"401","libelle":"Fournisseurs","debit":0,"credit":500000}]}
+###ECRITURE###{"journal":"CA","libelle":"Règlement fournisseur en espèces","lignes":[{"compte":"401","libelle":"Fournisseurs","debit":500000,"credit":0},{"compte":"571","libelle":"Caisse","debit":0,"credit":500000}]}
+
+UNE SEULE ECRITURE POUR ACHAT OU VENTE = ERREUR COMPTABLE GRAVE.
+
+════════════════════════════════════════════
 🔍 FILTRES ET NAVIGATION
 ════════════════════════════════════════════
 Journal     : ###FILTRE###{"type":"journal","dateDebut":"YYYY-MM-DD","dateFin":"YYYY-MM-DD","journal":"","compte":""}
